@@ -1,0 +1,85 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<center><h3>
+  EMS
+  <small class="text-body-secondary">by mini-gear</small>
+</h3></center>
+
+<hr>
+{% if user.is_authenticated %}
+<table class="table table-striped table-hover table-bordered border-secondary table align-middle text-center">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Designation</th>
+      <th scope="col">Salary</th>
+      <th scope="col">Contact no</th>
+      <th scope="col">Delete</th>
+      <th scope="col">Edit</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+    {% if emp %}
+    {% for i in emp %}
+    <tr></tr>
+      <td>{{ i.id }}</td>
+      <td>{{ i.name }}</td>
+      <td>{{ i.designation }}</td>
+      <td>{{ i.salary }}</td>
+      <td>{{ i.mob_no }}</td>
+      <td ><a class="btn btn-danger" href="{% url 'del_emp' i.id %}">Delete</a></td>
+      <td><a class="btn btn-primary" href="{% url 'update_emp' i.id %}">Update</a></td>
+    </tr>
+    {% endfor %}
+    {% endif %}
+  </tbody>
+</table>
+
+    {% else %}
+    <div class="col-md-6 offset-md-3">
+    <h1>Login</h1>
+    <br />
+    <form method="POST" action="{% url 'home' %}">
+      {% csrf_token %}
+  
+      <div class="mb-3">
+        <input
+          type="text" class="form-control" name ='user_name' placeholder="User name"required/>
+      </div>
+      <div class="mb-3">
+        <input type="password" class="form-control" name="password" placeholder="Password" required/>
+      </div>
+      <br>
+      <button type="submit" class="btn btn-secondary btn-outline-light" >Login</button>
+    </form>
+  </div>
+
+  {% endif %}
+
+<!-- <br />
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Designation</th>
+      <th>Salary</th>
+      <th>Mobile Number</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for e in emplist %}
+    <tr>
+      <td>{{e.id}}</td>
+      <td>{{e.name}}</td>
+      <td>{{e.designation}}</td>
+      <td>{{e.salary}}</td>
+      <td>{{e.mob_no}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table> -->
+{% endblock %}
